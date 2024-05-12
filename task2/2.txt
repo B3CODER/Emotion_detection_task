@@ -1,0 +1,51 @@
+{% if form_type == "text" %}
+    <div>
+        
+    </div>
+    {% elif form_type == "audio" %}
+    <div>
+        <p>{{ result }}</p>
+        <audio controls id="audioPlayer">
+            <source src="{{ audio_file }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+        <script>
+            // Function to play audio
+            function playAudio() {
+                var audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.play();
+            }
+        </script>
+        <button onclick="playAudio()">Play Audio</button>
+    </div>
+    
+    {% elif form_type == "image" %}
+    <div>
+        <p>{{ result }}</p>
+        <!-- Image display code goes here -->
+        <input type="file" id="imageInput" accept=".jpg, .jpeg, .png">
+        <button onclick="detectEmotion()">Detect Emotion</button>
+        <div id="result"></div>
+        <script>
+            function detectEmotion() {
+                var input = document.getElementById('imageInput');
+                var file = input.files[0];
+                var formData = new FormData();
+                formData.append('file', file);
+
+                fetch('/image_emotion', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('result').innerText = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').innerText = 'Error detecting emotion.';
+                });
+            }
+        </script>
+    </div>
+    {% endif %}
