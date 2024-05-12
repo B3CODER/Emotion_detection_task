@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <h1>Emotion Detection</h1>
+    <form action="/text_emotion" method="post">
+        <textarea name="text" placeholder="Enter text here"></textarea>
+        <button type="submit">Detect Emotion from Text</button>
+    </form>
+    <form action="/audio_emotion" method="post" enctype="multipart/form-data">
+        <input type="file" name="audio_file" accept=".wav">
+        <button type="submit">Detect Emotion from Audio</button>
+    </form>
+    <form action="/image_emotion" method="post" enctype="multipart/form-data">
+        <input type="file" name="image_file" accept=".jpg, .jpeg, .png">
+        <button type="submit">Detect Emotion from Image</button>
+    </form>
+</body>
+</html>
